@@ -4,8 +4,15 @@ import { signInWithPopup } from "firebase/auth";
 
 const Auth = () => {
   const SignInWithGoogle = async () => {
-    const results = await signInWithPopup(auth , provider);
-    console.log(results) 
+    const results = await signInWithPopup(auth, provider);
+    // console.log(results)
+    const authInfo = {
+      userID: results.user.uid,
+      name: results.user.displayName,
+      profilePhoto: results.user.photoURL,
+      isAuth: true,
+    };
+    localStorage.setItem("auth", JSON.stringify(authInfo));
   };
   return (
     <div className="login-page">
