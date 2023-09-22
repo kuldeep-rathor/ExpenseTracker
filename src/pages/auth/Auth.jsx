@@ -1,8 +1,10 @@
 import React from "react";
 import { auth, provider } from "../../config/firebase-config";
 import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom"; 
 
 const Auth = () => {
+  const  navigate = useNavigate()
   const SignInWithGoogle = async () => {
     const results = await signInWithPopup(auth, provider);
     // console.log(results)
@@ -13,6 +15,7 @@ const Auth = () => {
       isAuth: true,
     };
     localStorage.setItem("auth", JSON.stringify(authInfo));
+    navigate ("/expense-tracker")
   };
   return (
     <div className="login-page">
