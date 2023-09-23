@@ -2,6 +2,7 @@ import React from "react";
 
 const ExpenseTracker = () => {
   return (
+    <>
     <div className="expense-tracker">
       <div className="container">
         <h1>Expense Tracker</h1>
@@ -30,6 +31,10 @@ const ExpenseTracker = () => {
         </form>
       </div>
     </div>
+    <div className="transactions">
+      <h3>Transactions</h3>
+    </div>
+    </>
   );
 };
 
