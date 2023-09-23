@@ -1,12 +1,18 @@
-import React from "react"
-import {addDoc} from "firebase/firestore"
+import React from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebase-config";
 
+export const useAddTransaction = () => {
+  const transactionCollectionRef = collection(db, "transactions");
 
-
-export const useAddTransaction =   ()=>{
-    
-    const addTransaction = async ()=>{
-        await addDoc()
-    }
-    return 
-}
+  const addTransaction = async () => {
+    await addDoc(transactionCollectionRef, {
+      userID: "",
+      description: "",
+      transactionAmount: 0,
+      transactionType: "",
+      createdAT: "",
+    });
+  };
+  return;
+};
