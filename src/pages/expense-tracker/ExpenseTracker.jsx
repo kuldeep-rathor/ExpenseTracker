@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAddTransaction } from "../../hooks/useAddTransaction";
+import { useGetTransactions } from "../../hooks/useGetTransactions";
+import "./styles.css"
 
 const ExpenseTracker = () => {
   const { addTransaction } = useAddTransaction();
+  const { transactions } = useGetTransactions();
+
+  const [description, setDescription] = useState("");
+  const [transactionAmount, setTransactionAmount] = useState(0);
+  const [transactionType, setTransactionType] = useState("expense");
 
   const onSubmit = async (e) => {
     e.preventDefault();
     addTransaction({
-      description: "Haircut",
-      transactionAmount: 22,
-      transactionType: "expense",
+      description,
+      transactionAmount,
+      transactionType,
     });
   };
   return (
@@ -32,18 +39,61 @@ const ExpenseTracker = () => {
             </div>
           </div>
           <form className="add-transaction" onSubmit={onSubmit}>
-            <input type="text" placeholder="Description" required />
-            <input type="number" placeholder="Amount" required />
+            <input
+              type="text"
+              placeholder="Description"
+              required
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Amount"
+              required
+              onChange={(e) => setTransactionAmount(e.target.value)}
+            />
+            <input
+              type="radio"
+              id="expense"
+              value="expense"
+              checked={transactionType === "expense"}
+              onChange={(e) => setTransactionType(e.target.value)}
+            />
             <label htmlFor="expense">Expense</label>
-            <input type="radio" id="expense" value="expense" />
+            <input
+              type="radio"
+              id="income"
+              value="income"
+              checked={transactionType === "income"}
+              onChange={(e) => setTransactionType(e.target.value)}
+            />
             <label htmlFor="income">Income</label>
-            <input type="radio" id="income" value="income" />
             <button type="submit"> Add Transaction</button>
           </form>
         </div>
       </div>
       <div className="transactions">
         <h3>Transactions</h3>
+        <ul>
+          {transactions.map((transaction) => {
+            const { description, transactionAmount, transactionType } =
+              transaction;
+            return (
+              <li>
+                <h4>{description}</h4>
+                <p>
+                  ${transactionAmount} .{" "}
+                  <label
+                    style={{
+                      color: transactionType === "expense" ? "red" : "green",
+                    }}
+                  >
+                    {transactionType}
+                  </label>
+                </p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </>
   );
