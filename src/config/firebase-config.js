@@ -12,7 +12,7 @@ const firebaseConfig = {
   projectId: "expense-tracker-3f5a0",
   storageBucket: "expense-tracker-3f5a0.appspot.com",
   messagingSenderId: "763028058493",
-  appId: "1:763028058493:web:732b7b9c09c56e2a491c14",
+  appId: "1:763028058493:web:28815e48bd499718491c14",
 };
 
 // Initialize Firebase
@@ -20,3 +20,4 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
+
